@@ -30,7 +30,9 @@
     "converter",
     "encode-bytes",
     "encode-hex",
-    "base-x"
+    "base-x",
+    "base64",
+    "base67"
   ],
   "repository": {
     "type": "git",
