@@ -4,12 +4,13 @@
 ![NPM License](https://img.shields.io/npm/l/basex-converter)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/basex-converter)
 
+
 Due to the limitation of JavaScript's integer representation, which is limited to 53 bits, handling large numbers for
 encryption tasks can be challenging. Existing libraries run into problems when dealing with such values;  
 To fix this limitation, This library provides encoding of large numbers. This library provides the
 following features:
 
-Encoding and decoding of various data types:
+#### Encoding and decoding of various data types:
 
 - Regular numerical values
 - Hexadecimal values
@@ -20,7 +21,7 @@ Encoding and decoding of various data types:
 By overcoming JavaScript's integer limitations, this library allows developers to efficiently work with large numbers in
 encoding and base conversion tasks.
 
-> [!CAUTION]
+> [!CAUTION]  
 > **Be careful, spaces(" ") in the whole value and zeros(0) at the beginning of the value being ignored**
 
 <hr>
