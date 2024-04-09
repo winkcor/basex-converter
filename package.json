@@ -1,0 +1,57 @@
+{
+  "name": "basex-converter",
+  "version": "1.0.0",
+  "description": "Decode/encode hex,binary,regular values in any base and Base Converter",
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist/*"
+  ],
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsup",
+    "test": "tsc && jest"
+  },
+  "keywords": [
+    "base62",
+    "base58",
+    "encoder",
+    "decoder",
+    "base32",
+    "base36",
+    "ObjectId",
+    "converter",
+    "encode-bytes",
+    "encode-hex",
+    "base-x"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/winkcor/basex-converter.git"
+  },
+  "bugs": {
+    "url": "https://github.com/winkcor/basex-converter/issues"
+  },
+  "homepage": "https://github.com/winkcor/basex-converter#readme",
+  "author": "Hosein salari",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/bn.js": "^5.1.5",
+    "@types/jest": "^29.5.12",
+    "@types/node": "^20.11.20",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.1.2",
+    "tsup": "^8.0.2",
+    "typescript": "^5.4.3"
+  },
+  "dependencies": {
+    "bn.js": "^5.2.1"
+  }
+}
