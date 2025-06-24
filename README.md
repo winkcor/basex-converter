@@ -1,8 +1,9 @@
-# baseX-converter
+# basex-converter
 
 [![NPM Package](https://img.shields.io/npm/v/npm.svg?logo=npm)](https://www.npmjs.org/package/basex-converter)
 ![NPM License](https://img.shields.io/npm/l/basex-converter)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/basex-converter)
+![NPM Download](https://badgen.net/npm/dm/basex-converter)
 
 
 Due to the limitation of JavaScript's integer representation, which is limited to 53 bits, handling large numbers for
@@ -81,18 +82,18 @@ const {Base62, ALPHABET_BASE62_Default, ALPHABET_BASE62_INVERTED, BASE_DEFAULT} 
 ```
 
 ```typescript
-base62.decode('base62');
+console.log(base62.decode('base62'));
 // '34441886726'
-base62.encode('34441886726');
+console.log(base62.encode('34441886726'));
 // 'base62'
 ```
 
 ### Encode and decode bytes
 
 ```typescript
-base62.encode_bytes(new Uint8Array([0x01, 0x01]));
+console.log(base62.encode_bytes(new Uint8Array([0x01, 0x01])));
 // '49'
-base62.decode_bytes('49');
+console.log(base62.decode_bytes('49'));
 // Uint8Array(2) [ 1, 1 ]
 ```
 
@@ -101,15 +102,15 @@ base62.decode_bytes('49');
 #### This function is useful to encode and decode MongoDB ObjectId too
 
 ```typescript
-base62.encode_hex('604a38563');
-// 'sdg16r'
-base62.decode_hex('sdg16r');
+console.log(base62.encode_hex('604a38563'));
+// 'SDG16R'
+console.log(base62.decode_hex('SDG16R'));
 // '604a38563'
 
 // encode and decode mongodb objectid
-base62.encode_hex('63d91de18f092ab964484b9e');
+console.log(base62.encode_hex('63d91de18f092ab964484b9e'));
 // 'eBhQNIyMqR6WH3XS'
-base62.decode_hex('eBhQNIyMqR6WH3XS');
+console.log(base62.decode_hex('eBhQNIyMqR6WH3XS'));
 // '63d91de18f092ab964484b9e'
 ```
 
@@ -118,11 +119,11 @@ base62.decode_hex('eBhQNIyMqR6WH3XS');
 #### This function is able to convert any base to another with no limit on the size of value
 
 ```typescript
-base62.convert_base('ff', 16, 10);
+console.log(base62.convert_base('ff', 16, 10));
 // '255'
-base62.convert_base('wiv', 36, 10);
+console.log(base62.convert_base('wiv', 36, 10));
 // '42151'
-base62.convert_base('123456789123456789123456789123456789123456789', 10, 16);
+console.log(base62.convert_base('123456789123456789123456789123456789123456789', 10, 16));
 // '58936e53d139afefabb2683f150b684045f15'
 ```
 
@@ -141,7 +142,6 @@ import base62, {
 const base62 = new Base62();
 // make another base
 const base62 = new Base62(ALPHABET_BASE58, 58);
-;
 // or you can set alphabet
 const base62 = new Base62('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz');
 // or base
@@ -151,9 +151,9 @@ const base62 = new Base62('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopq
 #### Can pass custom alphabet for each converting
 
 ```typescript
-base62.decode('base62', '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz');
+console.log(base62.decode('base62', '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'));
 // '34441886726'
-base62.encode('34441886726', '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz');
+console.log(base62.encode('34441886726', '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'));
 // 'base62'
 ```
 
