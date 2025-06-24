@@ -53,13 +53,13 @@ See below for a list of commonly recognized alphabets, and their respective base
 ### Installation
 
 ```bash
-npm install base-62
+npm install basex-converter
 ```
 
 Alternatively using Yarn:
 
 ```bash
-yarn add base-62
+yarn add basex-converter
 ```
 
 ### Usage
@@ -69,16 +69,16 @@ yarn add base-62
 #### Import
 
 ```typescript
-import base62 from 'base62';
+import base62 from 'basex-converter';
 // or for making instance with custom alphabet
-import {Base62, ALPHABET_BASE62_Default, ALPHABET_BASE62_INVERTED, BASE_DEFAULT} from 'base62';
+import { Base62, ALPHABET_BASE62_Default, ALPHABET_BASE62_INVERTED, BASE_DEFAULT } from 'basex-converter';
 ```
 
 #### Commonjs require
 
 ```typescript
-const base62 = require('base62').default;
-const {Base62, ALPHABET_BASE62_Default, ALPHABET_BASE62_INVERTED, BASE_DEFAULT} = require('base62');
+const base62 = require('basex-converter').default;
+const { Base62, ALPHABET_BASE62_Default, ALPHABET_BASE62_INVERTED, BASE_DEFAULT } = require('basex-converter');
 ```
 
 ```typescript
@@ -134,10 +134,7 @@ But the alphabet can be changed without functional problems. it just sensitive t
 it.
 
 ```typescript
-import base62, {
-    ALPHABET_BASE58,
-    ALPHABET_BASE62_INVERTED,
-} from 'base62';
+import { Base62, ALPHABET_BASE58 } from 'basex-converter';
 // make instance
 const base62 = new Base62();
 // make another base
@@ -160,10 +157,7 @@ console.log(base62.encode('34441886726', '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZab
 #### Change alphabet or base, for changing base you should set a compatible alphabet too
 
 ```typescript
-import base62, {
-    ALPHABET_BASE58,
-    ALPHABET_BASE62_INVERTED,
-} from 'base62';
+import base62, { ALPHABET_BASE58, ALPHABET_BASE62_INVERTED } from 'basex-converter';
 // use costom alphabet
 base62.setAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz');
 // or use existing ones
