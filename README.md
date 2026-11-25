@@ -1,29 +1,27 @@
 # basex-converter
 
-[![NPM Package](https://img.shields.io/npm/v/npm.svg?logo=npm)](https://www.npmjs.org/package/basex-converter)
+[![NPM Package](https://img.shields.io/npm/v/basex-converter?logo=npm)](https://www.npmjs.org/package/basex-converter)
 ![NPM License](https://img.shields.io/npm/l/basex-converter)
+![NPM Types](https://img.shields.io/npm/types/basex-converter)
 ![npm bundle size](https://img.shields.io/bundlephobia/min/basex-converter)
 ![NPM Download](https://badgen.net/npm/dm/basex-converter)
 
 
-Due to the limitation of JavaScript's integer representation, which is limited to 53 bits, handling large numbers for
-encryption tasks can be challenging. Existing libraries run into problems when dealing with such values;  
-To fix this limitation, This library provides encoding of large numbers. This library provides the
-following features:
+JavaScript numbers cannot exactly represent integers larger than 2^53 - 1. This library uses arbitrary-precision
+integers to encode and convert large values without that limitation. Encoding is not encryption.
 
-#### Encoding and decoding of various data types:
+## Features
 
 - Regular numerical values
 - Hexadecimal values
 - Binary data as Uint8Array
-  Base Conversion: This library provides a multipurpose convert_base() function that can convert a value from any base
-  to another base without rounding off and size restriction
+- Base conversion with `convert_base()`, without rounding or a fixed value-size limit
 
-By overcoming JavaScript's integer limitations, this library allows developers to efficiently work with large numbers in
-encoding and base conversion tasks.
+For large integer inputs, pass decimal values as strings to avoid JavaScript number precision loss.
 
 > [!CAUTION]  
-> **Be careful, spaces(" ") in the whole value and zeros(0) at the beginning of the value being ignored**
+> Numeric encodings represent a number, so leading zeroes are not preserved. Use the byte methods when leading zero
+> bytes must be preserved. Do not include spaces in encoded values.
 
 <hr>
 
@@ -44,13 +42,19 @@ See below for a list of commonly recognized alphabets, and their respective base
 |  32  | ALPHABET_BASE32         | `0123456789ABCDEFGHJKMNPQRSTVWXYZ`                                    |
 |  36  | ALPHABET_BASE36         | `0123456789abcdefghijklmnopqrstuvwxyz`                                |
 |  58  | ALPHABET_BASE58         | `123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz`          |
-|  62  | ALPHABET_BASE62_Default | `0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ`      |
+|  62  | ALPHABET_BASE62_Default | `0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz`      |
 |  64  | ALPHABET_BASE64         | `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/`    |
 |  67  | ALPHABET_BASE67         | `ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.!~` |
 
-# Getting started
+## Getting started
 
 ### Installation
+
+```bash
+pnpm add basex-converter
+```
+
+Alternatively using npm:
 
 ```bash
 npm install basex-converter
@@ -74,7 +78,7 @@ import base62 from 'basex-converter';
 import { Base62, ALPHABET_BASE62_Default, ALPHABET_BASE62_INVERTED, BASE_DEFAULT } from 'basex-converter';
 ```
 
-#### Commonjs require
+#### CommonJS require
 
 ```typescript
 const base62 = require('basex-converter').default;
@@ -114,9 +118,9 @@ console.log(base62.decode_hex('eBhQNIyMqR6WH3XS'));
 // '63d91de18f092ab964484b9e'
 ```
 
-### Base converter
+### Base conversion
 
-#### This function is able to convert any base to another with no limit on the size of value
+Convert between bases without a fixed value-size limit:
 
 ```typescript
 console.log(base62.convert_base('ff', 16, 10));
@@ -128,24 +132,19 @@ console.log(base62.convert_base('123456789123456789123456789123456789123456789',
 ```
 
 
-This library provides the ability to change the alphabet and base for encoding and decoding. However, changing the base
-is not recommended unless you are sure that the chosen base works without malfunctioning.  
-But the alphabet can be changed without functional problems. it just sensitive to "space" character, and we can not use
-it.
+You can change the alphabet and base. The alphabet must contain exactly one unique character per base value. When
+changing the base, provide a compatible alphabet as well.
 
 ```typescript
 import { Base62, ALPHABET_BASE58 } from 'basex-converter';
-// make instance
-const base62 = new Base62();
-// make another base
-const base62 = new Base62(ALPHABET_BASE58, 58);
-// or you can set alphabet
-const base62 = new Base62('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz');
-// or base
-const base62 = new Base62('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 62);
+
+const defaultBase = new Base62();
+const base58 = new Base62(ALPHABET_BASE58, 58);
+const customAlphabet = new Base62('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz');
+const customBase = new Base62('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz', 62);
 ```
 
-#### Can pass custom alphabet for each converting
+#### Passing a custom alphabet
 
 ```typescript
 console.log(base62.decode('base62', '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'));
@@ -154,13 +153,14 @@ console.log(base62.encode('34441886726', '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZab
 // 'base62'
 ```
 
-#### Change alphabet or base, for changing base you should set a compatible alphabet too
+#### Changing the alphabet or base
 
 ```typescript
 import base62, { ALPHABET_BASE58, ALPHABET_BASE62_INVERTED } from 'basex-converter';
-// use costom alphabet
+// Use a custom alphabet with the current base
 base62.setAlphabet('0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz');
-// or use existing ones
+// Or use a predefined alphabet
 base62.setAlphabet(ALPHABET_BASE62_INVERTED);
+// Change both the alphabet and base together
 base62.setBaseAlphabet(ALPHABET_BASE58, 58);
 ```
